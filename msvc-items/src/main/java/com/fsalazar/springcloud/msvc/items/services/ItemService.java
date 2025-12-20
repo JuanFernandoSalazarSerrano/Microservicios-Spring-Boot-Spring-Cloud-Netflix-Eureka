@@ -8,5 +8,6 @@ import com.fsalazar.springcloud.msvc.items.models.Item;
 public interface ItemService {
     
     List<Item> findAll();
+    
     Optional<Item> findById(Long id);
 }
