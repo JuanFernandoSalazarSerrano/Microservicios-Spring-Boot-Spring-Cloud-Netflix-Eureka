@@ -1,0 +1,76 @@
+# =========================
+# Custom ignored folders
+# =========================
+helpersandstuffg/
+
+# =========================
+# Java / JVM
+# =========================
+*.class
+*.log
+
+# =========================
+# Maven
+# =========================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.buildNumber
+
+# =========================
+# Gradle
+# =========================
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# =========================
+# Spring / Boot
+# =========================
+application-local.yml
+application-local.properties
+application-dev.yml
+application-dev.properties
+application-prod.yml
+application-prod.properties
+
+# =========================
+# IDEs
+# =========================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+# Eclipse / STS
+.project
+.classpath
+.settings/
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs & temp
+# =========================
+logs/
+tmp/
+*.tmp
+*.swp
+
+# =========================
+# Docker
+# =========================
+.env
