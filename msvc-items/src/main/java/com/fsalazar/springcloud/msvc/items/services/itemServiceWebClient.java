@@ -33,7 +33,6 @@ public class itemServiceWebClient implements ItemService {
         return this.client
         .build()
         .get()
-        .uri("http://msvc-products")
         .accept(MediaType.APPLICATION_JSON)
         .retrieve()
         .bodyToFlux(ProductDTO.class)
