@@ -13,8 +13,8 @@ public class WebClientConfig {
     private String url;
 
     @Bean
-    @LoadBalanced
+    @LoadBalanced // load balance between all the machines in .properties
     WebClient.Builder webClient() {
-        return WebClient.builder().baseUrl(url);
+        return WebClient.builder().baseUrl(url); // all the clients are going to call to this url
     }
 }

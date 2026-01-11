@@ -30,19 +30,19 @@ public class itemServiceWebClient implements ItemService {
     @Override
     public List<Item> findAll() {
 
-        return this.client
-        .build()
-        .get()
-        .accept(MediaType.APPLICATION_JSON)
-        .retrieve()
-        .bodyToFlux(ProductDTO.class)
+        return this.client // this whole thing is going to gives us an instance of List<Item>
+
+        .build() // create a new instance of the class (from the webclient bean)
+        .get() // GET method
+        .accept(MediaType.APPLICATION_JSON) // headers and stuff
+        .retrieve() // now go fetch the data, this is the trigger to work with all the previous info
+        .bodyToFlux(ProductDTO.class) // the body you get back in the response convert it to an instance of ProductDTO
         .map(eachProduct -> {
             Random random = new Random();
             return new Item(eachProduct, random.nextInt(10) + 1);
-        })
+        }) // map eachproduct and convert it to an item
         .collectList()
-        .block()
-        ;
+        .block(); // blocks execution until the flux is complete
     }
 
     @Override
