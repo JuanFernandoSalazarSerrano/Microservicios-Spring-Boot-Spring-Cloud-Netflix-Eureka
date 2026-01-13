@@ -8,11 +8,22 @@ spring:
             uri: lb://msvc-products
             predicates:
             - Path=/api/products/**
+            - Header=token, 2828
+            - Method=GET, POST
+            - Query=color, verde
+            - Cookie=naoya, inoue
             filters:
             - StripPrefix=2
+            - name: SampleCookie
+              args:
+                message: I HAVE 99 PROBLEMS
+                name: PROBLEMS
+                value: 99
           - id: msvc-items
             uri: lb://msvc-items
             predicates:
             - Path=/api/items/**
             filters:
             - StripPrefix=2
+            - AddRequestHeader=X-Request-red, blue
+            - AddRequestParameter=name, nya
