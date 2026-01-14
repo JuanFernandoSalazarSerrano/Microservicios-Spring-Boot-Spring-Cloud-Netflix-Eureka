@@ -1,6 +1,7 @@
 package com.example.fsalazar.springcloud.msvc.products.controllers;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,8 @@ import com.example.fsalazar.springcloud.msvc.products.services.ProductService;
 @RestController
 public class ProductController {
 
-    final private ProductService service;
+    private final ProductService service;
+
 
     public ProductController(ProductService service) {
         this.service = service;
@@ -26,7 +28,17 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> details(@PathVariable Long id) {
+    public ResponseEntity<?> details(@PathVariable Long id) throws InterruptedException {
+
+         // just for testing resilience4j
+        if(id.equals(10L)){
+            throw new IllegalStateException("No product found man idk");
+        }
+
+        if(id.equals(7L)){
+            TimeUnit.SECONDS.sleep(5L);
+        }
+
         Optional<Product> productOptional = service.findById(id);
         if(productOptional.isPresent()){
             return ResponseEntity.ok(productOptional.orElseThrow());
