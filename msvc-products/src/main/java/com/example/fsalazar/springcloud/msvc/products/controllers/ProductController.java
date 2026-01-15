@@ -31,12 +31,12 @@ public class ProductController {
     public ResponseEntity<?> details(@PathVariable Long id) throws InterruptedException {
 
          // just for testing resilience4j
-        if(id.equals(10L)){
+        if(id.equals(33L)){
             throw new IllegalStateException("No product found man idk");
         }
 
         if(id.equals(7L)){
-            TimeUnit.SECONDS.sleep(5L);
+            TimeUnit.SECONDS.sleep(3L);
         }
 
         Optional<Product> productOptional = service.findById(id);

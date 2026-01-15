@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 
 @Configuration
 public class AppConfig {
@@ -28,6 +29,13 @@ public class AppConfig {
                 .waitDurationInOpenState(Duration.ofSeconds(10L))
                 .failureRateThreshold(50)
                 .slidingWindowSize(10)
+                .slowCallDurationThreshold(Duration.ofSeconds(2L)) //more than 2 seconds its logged as an slow call, something might be wrong
+                .slowCallRateThreshold(50)
+                .build())
+                
+                .timeLimiterConfig(TimeLimiterConfig
+                .custom()
+                .timeoutDuration(Duration.ofSeconds(4L)) // works before slowCallDurationThreshold
                 .build())
                 .build();
             }

@@ -46,7 +46,7 @@ public class ItemController {
     public ResponseEntity<?> details(@PathVariable Long id) {
         
         Optional<Item> itemOptional = circuitBreakerFactory.create("items").run(
-            () -> service.findById(id),
+            () -> service.findById(id) /*,
              
             exception -> {
             logger.error("Error fetching item with id: {}", id, exception);
@@ -59,7 +59,7 @@ public class ItemController {
 
             Item item = new Item(product, 28);
             return Optional.of(item);
-            });
+            }*/ );
 
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
