@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true) // readonly is only for querys
     public Optional<Product> findById(Long id) {
         return repository.findById(id).map(product -> {
             product.setPort(Integer.parseInt(environment.getProperty("local.server.port")));
@@ -46,4 +46,15 @@ public class ProductServiceImpl implements ProductService {
         });
     }
 
+    @Override
+    @Transactional
+    public Product save(Product product) {
+        return repository.save(product);
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }

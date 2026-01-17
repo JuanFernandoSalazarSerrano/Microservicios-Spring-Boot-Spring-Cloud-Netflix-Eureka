@@ -3,9 +3,14 @@ package com.example.fsalazar.springcloud.msvc.products.controllers;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fsalazar.springcloud.msvc.products.entities.Product;
@@ -45,6 +50,24 @@ public class ProductController {
         }
         return ResponseEntity.notFound().build();
     }
-    
-    
+
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody Product product) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.service.save(product));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> modify(@PathVariable Long id, @RequestBody Product product) {
+        product.setId(id);
+        product.setName(product.getName());
+        product.setPrice(product.getPrice());
+        product.setCreateAt(product.getCreateAt());
+        return ResponseEntity.ok(this.service.save(product));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        this.service.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }

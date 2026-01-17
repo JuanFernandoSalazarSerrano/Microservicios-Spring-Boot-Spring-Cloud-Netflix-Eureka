@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
 
+// this is just another controller but instead of use webclient it uses feign
 @FeignClient(name = "msvc-products")
-
 public interface ProductFeignClient {
 
     @GetMapping
