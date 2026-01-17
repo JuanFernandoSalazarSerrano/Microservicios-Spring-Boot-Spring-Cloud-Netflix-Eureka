@@ -11,7 +11,7 @@ import com.fsalazar.springcloud.msvc.items.clients.ProductFeignClient;
 import com.fsalazar.springcloud.msvc.items.models.Item;
 import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
 
-@Service
+@Service("ItemServiceFeign")
 public class ItemServiceFeign implements ItemService {
 
     private final ProductFeignClient client;
@@ -41,19 +41,16 @@ public class ItemServiceFeign implements ItemService {
 
     @Override
     public ProductDTO save(ProductDTO product) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return client.create(product);
     }
 
     @Override
     public ProductDTO update(ProductDTO product, Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        return client.update((product), id);
     }
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        client.delete(id);
     }
 }

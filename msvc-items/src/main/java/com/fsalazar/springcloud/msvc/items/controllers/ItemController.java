@@ -49,7 +49,7 @@ public class ItemController {
     @Autowired
     private Environment env;
 
-    public ItemController(@Qualifier("itemServiceWebClient") ItemService service, CircuitBreakerFactory circuitBreakerFactory) {
+    public ItemController(@Qualifier("ItemServiceFeign") ItemService service, CircuitBreakerFactory circuitBreakerFactory) {
         this.service = service;
         this.circuitBreakerFactory = circuitBreakerFactory;
     }
