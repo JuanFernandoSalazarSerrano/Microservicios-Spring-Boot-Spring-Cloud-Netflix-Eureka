@@ -2,8 +2,8 @@ package com.fsalazar.springcloud.msvc.items.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fsalazar.libs.msvc.commons.entities.Product;
 import com.fsalazar.springcloud.msvc.items.models.Item;
-import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
 import com.fsalazar.springcloud.msvc.items.services.ItemService;
 
 import java.time.LocalDate;
@@ -85,7 +85,7 @@ public class ItemController {
             exception -> {
             logger.error("Error fetching item with id: {}", id, exception);
             
-            ProductDTO product = new ProductDTO();
+            Product product = new Product();
             product.setId(2828L);
             product.setCreateAt(LocalDate.now());
             product.setName("pizza");
@@ -106,14 +106,14 @@ public class ItemController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO create(@RequestBody ProductDTO productDTO) {
-        return service.save(productDTO);        
+    public Product create(@RequestBody Product product) {
+        return service.save(product);        
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDTO putMethodName(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
-        return service.update(productDTO, id);
+    public Product putMethodName(@PathVariable Long id, @RequestBody Product product) {
+        return service.update(product, id);
     }
 
     @DeleteMapping("/{id}")

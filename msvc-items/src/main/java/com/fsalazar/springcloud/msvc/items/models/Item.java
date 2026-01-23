@@ -1,11 +1,13 @@
 package com.fsalazar.springcloud.msvc.items.models;
 
+import com.fsalazar.libs.msvc.commons.entities.Product;
+
 public class Item {
 
-    private ProductDTO product;
+    private Product product;
     private int quantity;
     
-    public Item(ProductDTO product, int quantity) {
+    public Item(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
@@ -18,10 +20,10 @@ public class Item {
         this.quantity = quantity;
     }
 
-        public ProductDTO getProduct() {
+        public Product getProduct() {
         return product;
     }
-    public void setProduct(ProductDTO product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 

@@ -10,23 +10,23 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
+import com.fsalazar.libs.msvc.commons.entities.Product;
 
 // this is just another controller but instead of use webclient it uses feign
 @FeignClient(name = "msvc-products")
 public interface ProductFeignClient {
 
     @GetMapping
-    List<ProductDTO> findAll();
+    List<Product> findAll();
 
     @GetMapping("/{id}")
-    public ProductDTO details(@PathVariable Long id);
+    public Product details(@PathVariable Long id);
 
     @PostMapping
-    public ProductDTO create(@RequestBody ProductDTO productDTO);
+    public Product create(@RequestBody Product product);
 
     @PutMapping("/{id}")
-    public ProductDTO update(@RequestBody ProductDTO productDTO, @PathVariable Long id);
+    public Product update(@RequestBody Product product, @PathVariable Long id);
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id);

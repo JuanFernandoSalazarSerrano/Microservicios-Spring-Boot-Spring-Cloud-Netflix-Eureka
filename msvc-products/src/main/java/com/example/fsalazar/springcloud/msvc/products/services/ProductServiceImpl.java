@@ -8,8 +8,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.fsalazar.springcloud.msvc.products.entities.Product;
 import com.example.fsalazar.springcloud.msvc.products.repositories.ProductRepository;
+import com.fsalazar.libs.msvc.commons.entities.Product;
 
 
 @Service

@@ -3,8 +3,7 @@ package com.example.fsalazar.springcloud.msvc.products.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.fsalazar.springcloud.msvc.products.entities.Product;
-
+import com.fsalazar.libs.msvc.commons.entities.Product;
 
 public interface ProductService {
 

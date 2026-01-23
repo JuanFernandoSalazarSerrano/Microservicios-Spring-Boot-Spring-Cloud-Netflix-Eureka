@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.fsalazar.springcloud.msvc.products.entities.Product;
 import com.example.fsalazar.springcloud.msvc.products.services.ProductService;
+import com.fsalazar.libs.msvc.commons.entities.Product;
 
 
 @RestController

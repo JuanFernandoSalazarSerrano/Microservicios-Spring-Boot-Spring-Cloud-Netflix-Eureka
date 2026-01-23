@@ -12,9 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
 
+import com.fsalazar.libs.msvc.commons.entities.Product;
 import com.fsalazar.springcloud.msvc.items.models.Item;
-import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
-
 
 @Primary
 @Service
@@ -35,7 +34,7 @@ public class itemServiceWebClient implements ItemService {
         .get() // GET method
         .accept(MediaType.APPLICATION_JSON) // headers and stuff
         .retrieve() // now go fetch the data, this is the trigger to work with all the previous info
-        .bodyToFlux(ProductDTO.class) // the body you get back in the response convert it to an instance of ProductDTO
+        .bodyToFlux(Product.class) // the body you get back in the response convert it to an instance of Product
         .map(eachProduct -> {
             Random random = new Random();
             return new Item(eachProduct, random.nextInt(10) + 1);
@@ -52,7 +51,7 @@ public class itemServiceWebClient implements ItemService {
             return Optional.of(client.build().get().uri("/{id}", params)
                     .accept(MediaType.APPLICATION_JSON)
                     .retrieve()
-                    .bodyToMono(ProductDTO.class)
+                    .bodyToMono(Product.class)
                     .map(product -> new Item(product, new Random().nextInt(10) + 1))
                     .block());
         // } catch (WebClientResponseException e) {
@@ -61,18 +60,18 @@ public class itemServiceWebClient implements ItemService {
     }
 
     @Override
-    public ProductDTO save(ProductDTO product) {
+    public Product save(Product product) {
         return client.build()
         .post()
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(product)
         .retrieve()
-        .bodyToMono(ProductDTO.class)
+        .bodyToMono(Product.class)
         .block();
     }
 
     @Override
-    public ProductDTO update(ProductDTO product, Long id) {
+    public Product update(Product product, Long id) {
 
         Map<String, Long> params = new HashMap<>();
         params.put("id", id);
@@ -84,7 +83,7 @@ public class itemServiceWebClient implements ItemService {
         .contentType(MediaType.APPLICATION_JSON)
         .bodyValue(product)
         .retrieve()
-        .bodyToMono(ProductDTO.class)
+        .bodyToMono(Product.class)
         .block();
     }
 

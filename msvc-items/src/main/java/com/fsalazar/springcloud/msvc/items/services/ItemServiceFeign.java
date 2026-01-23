@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.fsalazar.libs.msvc.commons.entities.Product;
 import com.fsalazar.springcloud.msvc.items.clients.ProductFeignClient;
 import com.fsalazar.springcloud.msvc.items.models.Item;
-import com.fsalazar.springcloud.msvc.items.models.ProductDTO;
 
 @Service("ItemServiceFeign")
 public class ItemServiceFeign implements ItemService {
@@ -30,7 +30,7 @@ public class ItemServiceFeign implements ItemService {
 
     @Override
     public Optional<Item> findById(Long id) {
-        ProductDTO product = client.details(id);
+        Product product = client.details(id);
         if (product == null) {
             return Optional.empty();
         }
@@ -40,12 +40,12 @@ public class ItemServiceFeign implements ItemService {
     }
 
     @Override
-    public ProductDTO save(ProductDTO product) {
+    public Product save(Product product) {
         return client.create(product);
     }
 
     @Override
-    public ProductDTO update(ProductDTO product, Long id) {
+    public Product update(Product product, Long id) {
         return client.update((product), id);
     }
 
