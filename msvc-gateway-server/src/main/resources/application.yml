@@ -1,29 +1,84 @@
+resilience4j:
+  circuitbreaker:
+    configs:
+      defecto:
+        sliding-window-size: 6
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 20s
+        permitted-number-of-calls-in-half-open-state: 4
+        slow-call-duration-threshold: 3s
+        slow-call-rate-threshold: 50
+    instances:
+      products:
+        base-config: defecto
+  timelimiter:
+    configs:
+     defecto:
+       timeout-duration: 3s
+    instances:
+      products:
+        base-config: defecto
+
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:9100
+      client:
+        registration:
+          client-app:
+            provider: spring
+            client-id: gateway-app
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            redirect-uri: http://127.0.0.1:8090/authorized
+            scope:
+            - openid
+            - profile
+            client-name: client-app
+        provider:
+          spring:
+            issuer-uri: http://127.0.0.1:9100
   cloud:
     gateway:
-      server:
-        webflux:
-          routes:
-          - id: msvc-products
-            uri: lb://msvc-products
-            predicates:
-            - Path=/api/products/**
-            # - Header=token, 2828
-            # - Method=GET, POST
-            # - Query=color, verde
-            # - Cookie=naoya, inoue
-            filters:
-            - StripPrefix=2
-            - name: SampleCookie
-              args:
-                message: I HAVE 99 PROBLEMS
-                name: PROBLEMS
-                value: 99
-          - id: msvc-items
-            uri: lb://msvc-items
-            predicates:
-            - Path=/api/items/**
-            filters:
-            - StripPrefix=2
-            - AddRequestHeader=X-Request-red, blue
-            - AddRequestParameter=name, nya
+      routes:
+      - id: msvc-oauth
+        uri: lb://msvc-oauth
+        predicates:
+        - Path=/api/security/**
+        filters:
+        - StripPrefix=2
+      - id: msvc-users
+        uri: lb://msvc-users
+        predicates:
+        - Path=/api/users/**
+        filters:
+        - StripPrefix=2
+      - id: msvc-products
+        uri: lb://msvc-products
+        predicates:
+        - Path=/api/products/**
+        # - Header=token, \d+
+        # - Method=GET, POST
+        # - Query=color
+        # - Cookie=color, azul
+        # - Header=Content-Type, application/json
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: products
+            statusCodes: 500
+            fallbackUri: forward:/api/items/5
+        - StripPrefix=2
+        - EjemploCookie=Hola mi mensaje personalizado para productos!, user, Andres
+      - id: msvc-items
+        uri: lb://msvc-items
+        predicates:
+        - Path=/api/items/**
+        filters:
+        - StripPrefix=2
+        - AddRequestHeader=token-request, aabbsjdfjsaj
+        - AddResponseHeader=token-response, 234340823
+        - AddRequestParameter=name, Andres
+        - SetResponseHeader=Content-Type, text/plain

@@ -25,6 +25,9 @@
 		{
 			"name": "msvc-users",
 			"path": "msvc-users"
+		},
+		{
+			"path": "oauth2msvc"
 		}
 	],
 	"settings": {
