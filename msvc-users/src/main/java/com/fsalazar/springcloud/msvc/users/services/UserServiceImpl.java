@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
     @Transactional
     public User save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

@@ -53,6 +53,20 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
+    @GetMapping("/username/{username}")
+    public ResponseEntity<?> detailsByUsername(@PathVariable String username) {
+        logger.info("Getting user with username: {}", username);
+        Optional<User> userOptional = userService.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok(userOptional.get());
+        }
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User not found with username: " + username);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<User> create(@RequestBody User user) {

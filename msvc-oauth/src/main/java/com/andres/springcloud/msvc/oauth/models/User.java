@@ -64,7 +64,7 @@ public class User {
         this.email = email;
     }
 
-    public Boolean getEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
